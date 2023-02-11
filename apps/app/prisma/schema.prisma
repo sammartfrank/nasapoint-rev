@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Apod {
+  id              String @id @default(cuid())
+  copyright       String
+  date            String
+  explanation     String
+  hdurl           String
+  media_type      String
+  service_version String
+  title           String
+  url             String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([date])
+  @@index([date])
+}
+
+model Visit {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  date      String
+  updatedAt DateTime @updatedAt
+  count     Int      @default(0)
+
+  @@unique([date])
+  @@index([date])
+}

@@ -4,13 +4,11 @@ import { getToken } from 'next-auth/jwt';
 import nextConnect, { NextHandler } from "next-connect";
 export type NasapointNextApiRequest = NextApiRequest & {
   userId?: string;
-  apiKey?: string;
 };
 
 export const decodeToken = async (req: NasapointNextApiRequest, res: NextApiResponse, next: NextHandler) => {
   const token:any = await getToken({ req });
   req.userId = token?.id;
-  req.apiKey = process.env.NASA_API_KEY;
   next();
 };
 

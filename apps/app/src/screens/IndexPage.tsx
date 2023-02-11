@@ -1,16 +1,21 @@
-import { useApod } from "hooks/useApod";
+import { Apod } from '@prisma/client';
+import { useApod } from 'hooks/useApod';
+import Image from 'next/image';
 
+export const IndexPage = ({ initialApod }: { initialApod: Apod }) => {
+  const { apod } = useApod(initialApod);
+  console.log('🚀 ~ apod', apod);
 
-export const IndexPage = () => {
-
-    
-    return (
-        <div className="w-full h-screen bg-zinc-600">
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="text-white border-2 border-zinc-300">
-                    Franco Testings ssssss
-                </div>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="flex flex-col items-center justify-center w-full h-screen gap-5 text-white bg-zinc-600">
+      <div className="flex flex-col items-center justify-center">
+        <h1>APOD</h1>
+        {apod ? <Image src={apod.hdurl} width={1200} height={1200} alt="Apod" /> : null}
+        <p>
+          {apod?.title} - {apod?.copyright}
+        </p>
+        <p>{apod?.explanation}</p>
+      </div>
+    </div>
+  );
+};
