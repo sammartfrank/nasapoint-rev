@@ -24,9 +24,9 @@ export const Header = ({ dateSelected, setDateSelected }: { dateSelected: string
           selected={datePickerValue}
           onChange={handleDatePicker}
           dateFormat="dd/MM/yyyy"
-          className={`px-2 text-white font-semibold font-mono rounded-lg bg-transparent z-10 ${
-            showDatePicker ? 'visible' : 'invisible'
-          }`}
+          maxDate={moment().toDate()}
+          
+          className={`px-2 text-white font-semibold font-mono rounded-lg bg-transparent z-10 invisible`}
         />
       </div>
     </div>

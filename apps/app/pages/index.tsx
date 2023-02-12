@@ -20,17 +20,19 @@ const HomePage = ({ apodSaved }: { apodSaved: string }) => {
 export default HomePage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  ctx.res.setHeader('Cache-Control', 'public, Cache-Control: max-age=31536000, stale-while-revalidate=59');
+  ctx.res.setHeader('Cache-Control', 'public, Cache-Control: max-age=3600, stale-while-revalidate=59');
 
-  const DATE = moment().format('YYYY-MM-DD');
+  const date = moment().format('YYYY-MM-DD');
 
-  const [apodSaved, visitCount] = await prisma.$transaction([
+  const [apodSaved, _visitCount] = await prisma.$transaction([
+    // Get Unique Apod By Date
     prisma.apod.findUnique({
-      where: { date: DATE },
+      where: { date },
     }),
+    // Upsert Visit counter by Date
     prisma.visit.upsert({
-      where: { date: DATE },
-      create: { date: DATE, count: 1 },
+      where: { date },
+      create: { date, count: 1 },
       update: {
         count: {
           increment: 1,
