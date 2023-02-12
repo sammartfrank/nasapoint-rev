@@ -1,14 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 const { fontFamily, colors, fontSize, ...theme } = require('tailwindcss/defaultTheme');
+const scrollbarPlugin = require('tailwind-scrollbar');
 
 module.exports = {
   mode: 'jit',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './src/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: ['./pages/**/*.{html,js,ts,jsx,tsx}', './src/**/*.{html,js,ts,jsx,tsx}'],
   theme: {
     fontSize: {
       ...fontSize,
@@ -102,4 +98,5 @@ module.exports = {
       },
     },
   },
+  plugins: [scrollbarPlugin({ noncompatible: true })],
 };

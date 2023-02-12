@@ -10,13 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum mediaType {
+  image
+  video
+}
+
 model Apod {
-  id              String @id @default(cuid())
-  copyright       String
+  id              String    @id @default(cuid())
+  copyright       String?
   date            String
   explanation     String
-  hdurl           String
-  media_type      String
+  hdurl           String?
+  media_type      mediaType @default(image)
   service_version String
   title           String
   url             String

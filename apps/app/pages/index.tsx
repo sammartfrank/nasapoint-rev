@@ -1,9 +1,9 @@
-import Head from 'next/head';
-import { IndexPage } from '../src/screens/IndexPage';
-import { GetServerSideProps, GetStaticProps } from 'next';
-import prisma from 'utils/prismaClient';
 import moment from 'moment';
+import Head from 'next/head';
+import { GetServerSideProps } from 'next';
+import prisma from 'utils/prismaClient';
 import { Apod } from '@prisma/client';
+import { Home } from 'screens/Home';
 
 const HomePage = ({ apodSaved }: { apodSaved: string }) => {
   const initialApod = JSON.parse(apodSaved) as Apod;
@@ -12,7 +12,7 @@ const HomePage = ({ apodSaved }: { apodSaved: string }) => {
       <Head>
         <title>Nasapoint</title>
       </Head>
-      <IndexPage initialApod={initialApod} />
+      <Home initialApod={initialApod} />
     </>
   );
 };
@@ -20,15 +20,17 @@ const HomePage = ({ apodSaved }: { apodSaved: string }) => {
 export default HomePage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const date = moment().format('YYYY-MM-DD');
+  ctx.res.setHeader('Cache-Control', 'public, Cache-Control: max-age=31536000, stale-while-revalidate=59');
+
+  const DATE = moment().format('YYYY-MM-DD');
 
   const [apodSaved, visitCount] = await prisma.$transaction([
     prisma.apod.findUnique({
-      where: { date },
+      where: { date: DATE },
     }),
     prisma.visit.upsert({
-      where: { date },
-      create: { date, count: 1 },
+      where: { date: DATE },
+      create: { date: DATE, count: 1 },
       update: {
         count: {
           increment: 1,
@@ -40,8 +42,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     }),
   ]);
-
-  console.error('visitCount', visitCount);
 
   return {
     props: {

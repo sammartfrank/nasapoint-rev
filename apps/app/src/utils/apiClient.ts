@@ -12,7 +12,6 @@ export const httpGet = async <R, D = any>(url: string, config?: AxiosRequestConf
     const { data } = await client.get<any, AxiosResponse<R>, D>(url, config);
     return data;
   } catch (error: any) {
-    console.log('🚀 ~ error', error);
     throw Error(error.response.data);
   }
 };
