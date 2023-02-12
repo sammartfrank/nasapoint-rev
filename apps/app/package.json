@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "nasapoint-revamp",
   "version": "0.0.0",
   "private": true,
   "author": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint"
   },
