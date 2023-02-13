@@ -20,6 +20,7 @@ const HomePage = ({ apodSaved }: { apodSaved: string }) => {
 export default HomePage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  console.log('🚀 ~ ctx', ctx);
   ctx.res.setHeader('Cache-Control', 'public, Cache-Control: max-age=3600, stale-while-revalidate=59');
 
   const date = moment().format('YYYY-MM-DD');
@@ -45,9 +46,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }),
   ]);
 
+  const apod = {
+    ...apodSaved,
+    itsInitial: true,
+  };
+
   return {
     props: {
-      apodSaved: JSON.stringify(apodSaved),
+      apodSaved: JSON.stringify(apod),
     },
   };
 };

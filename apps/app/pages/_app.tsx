@@ -1,16 +1,11 @@
-import {
-  Hydrate,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
-
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import type { AppProps } from 'next/app';
 
 import '../styles/globals.css';
+import { createSupabaseClient } from 'utils/supabaseClient';
 
-const queryClient = new QueryClient()
-
+const queryClient = new QueryClient();
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
@@ -18,5 +13,5 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </Hydrate>
     </QueryClientProvider>
-  )
+  );
 }
