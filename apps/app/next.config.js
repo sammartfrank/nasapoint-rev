@@ -9,4 +9,10 @@ module.exports = {
       },
     ],
   },
+  rewrites: async () => [
+    {
+      source: '/api/:path*',
+      destination: `${process.env.NEXT_PUBLIC_URL}/api/:path*`,
+    },
+  ],
 };
