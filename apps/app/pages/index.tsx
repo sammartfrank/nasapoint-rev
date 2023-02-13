@@ -1,4 +1,3 @@
-import moment from 'moment';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import prisma from 'utils/prismaClient';
@@ -20,17 +19,12 @@ const HomePage = ({ apodSaved }: { apodSaved: string }) => {
 export default HomePage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  console.log('🚀 ~ ctx', ctx);
-  ctx.res.setHeader('Cache-Control', 'public, Cache-Control: max-age=3600, stale-while-revalidate=59');
-
-  const date = moment().format('YYYY-MM-DD');
+  const date = new Date().toISOString().split('T')[0];
 
   const [apodSaved, _visitCount] = await prisma.$transaction([
-    // Get Unique Apod By Date
     prisma.apod.findUnique({
       where: { date },
     }),
-    // Upsert Visit counter by Date
     prisma.visit.upsert({
       where: { date },
       create: { date, count: 1 },
@@ -46,14 +40,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }),
   ]);
 
-  const apod = {
-    ...apodSaved,
-    itsInitial: true,
-  };
-
   return {
     props: {
-      apodSaved: JSON.stringify(apod),
+      apodSaved: JSON.stringify(apodSaved),
     },
   };
 };

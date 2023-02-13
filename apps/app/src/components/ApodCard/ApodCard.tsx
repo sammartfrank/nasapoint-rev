@@ -1,5 +1,6 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 /* eslint-disable tailwindcss/classnames-order */
+
 import Image from 'next/image';
 
 import { ApodInfo } from 'components/ApodCard/ApodInfo/ApodInfo';
