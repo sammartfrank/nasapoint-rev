@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint-config-custom", "next/core-web-vitals", "plugin:tailwindcss/recommended"],
+  "extends": ["eslint-config-custom", "next/babel", "next/core-web-vitals", "plugin:tailwindcss/recommended"],
   "plugins": ["tailwindcss"],
   "settings": {
     "tailwindcss": {
