@@ -9,10 +9,4 @@ module.exports = {
       },
     ],
   },
-  rewrites: async () => [
-    {
-      source: '/api/:path*',
-      destination: `https:${process.env.VERCEL}/api/:path*`,
-    },
-  ],
 };
