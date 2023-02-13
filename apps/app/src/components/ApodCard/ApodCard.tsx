@@ -1,3 +1,5 @@
+/* eslint-disable tailwindcss/no-custom-classname */
+/* eslint-disable tailwindcss/classnames-order */
 import Image from 'next/image';
 
 import { ApodInfo } from 'components/ApodCard/ApodInfo/ApodInfo';
@@ -6,7 +8,6 @@ import { IOSCard } from './IOSCard/IOSCard';
 import { ImagePlaceholder } from 'components/ImagePlaceholder/Image';
 import { Apod, mediaType } from '@prisma/client';
 import { InfoSkeleton } from './ApodInfo/InfoSkeleton';
-import { useState } from 'react';
 
 type UiApod = Apod & { itsInitial?: boolean };
 
@@ -22,11 +23,11 @@ export const ApodCard = ({ initialApod, dateSelected }: { initialApod: UiApod; d
 
   const apod: UiApod = apodByDate ? apodByDate : initialApod;
   return (
-    <div className={`container flex flex-row justify-center gap-24 mx-auto`}>
+    <div className="container mx-auto flex flex-row justify-center gap-24">
       <ApodInfo apod={apod} />
       <div>
-        <IOSCard className="flex w-full shadow-lg grow shadow-black">
-          <ImagePlaceholder className="max-w-[850px] max-h-[850px] mx-auto overflow-y-auto overscroll-contain scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-zinc-900 scrollbar-thumb-rounded-md scrollbar-thumb-w-[3px]">
+        <IOSCard className="flex w-full grow shadow-lg shadow-black">
+          <ImagePlaceholder className="scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-zinc-900 scrollbar-thumb-rounded-md scrollbar-thumb-w-[3px] mx-auto max-h-[850px] max-w-[850px] overflow-y-auto overscroll-contain">
             {!IS_VIDEO ? (
               <Image
                 loading="lazy"
@@ -40,8 +41,8 @@ export const ApodCard = ({ initialApod, dateSelected }: { initialApod: UiApod; d
                 data-loading={isLoading}
               />
             ) : (
-              <div className="w-[850px] h-[850px]">
-                <iframe src={apodByDate?.url} className="w-full h-full aspect-video" />
+              <div className="h-[850px] w-[850px]">
+                <iframe src={apodByDate?.url} className="aspect-video h-full w-full" />
               </div>
             )}
           </ImagePlaceholder>

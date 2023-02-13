@@ -5,12 +5,12 @@ export const ApodInfo = ({ apod }: { apod: Apod }) => {
   const { date, title, copyright, explanation } = apod;
 
   return (
-    <div className="flex flex-col text-white gap-y-6 w-96">
-      <span className="text-gray-500 text-md">{date}</span>
+    <div className="flex w-96 flex-col gap-y-6 text-white">
+      <span className="text-base text-gray-500">{date}</span>
       <div className="flex flex-col gap-3">
         <h2 className="w-full text-2xl font-light underline">{title}</h2>
-        <span className="text-gray-500 text-md">{copyright}</span>
-        <p className="font-mono text-sm leading-4 text-justify font-extralight">{explanation}</p>
+        <span className="text-base text-gray-500">{copyright}</span>
+        <p className="text-justify font-mono text-sm font-extralight leading-4">{explanation}</p>
       </div>
       <ActionButtons />
     </div>

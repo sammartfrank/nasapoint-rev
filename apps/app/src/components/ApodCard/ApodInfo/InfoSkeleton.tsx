@@ -3,33 +3,33 @@ import { IOSCard } from '../IOSCard/IOSCard';
 
 export const InfoSkeleton = () => {
   return (
-    <div className="container flex flex-row justify-center gap-24 mx-auto">
-      <div className="flex flex-col text-white opacity-75 gap-y-6 w-96 h-[650px] bg-zinc-900 rounded-md">
-        <div className="flex flex-col items-center flex-1 w-full p-5">
-          <div className="flex-col items-center justify-center w-full animate-pulse rounded-xl ">
+    <div className="container mx-auto flex flex-row justify-center gap-24">
+      <div className="flex h-[650px] w-96 flex-col gap-y-6 rounded-md bg-zinc-900 text-white opacity-75">
+        <div className="flex w-full flex-1 flex-col items-center p-5">
+          <div className="w-full animate-pulse flex-col items-center justify-center rounded-xl ">
             <div className="flex flex-col justify-center space-y-5">
-              <div className="h-6 bg-gray-700 rounded-md w-12/12 animate-pulse"></div>
-              <div className="w-9/12 h-6 bg-gray-700 rounded-md "></div>
-              <div className="w-9/12 h-6 bg-gray-700 rounded-md animate-pulse"></div>
+              <div className="h-6 w-full animate-pulse rounded-md bg-gray-700"></div>
+              <div className="h-6 w-9/12 rounded-md bg-gray-700 "></div>
+              <div className="h-6 w-9/12 animate-pulse rounded-md bg-gray-700"></div>
               <br />
-              <div className="h-6 bg-gray-700 rounded-md w-12/12 animate-pulse"></div>
-              <div className="w-9/12 h-6 bg-gray-700 rounded-md "></div>
+              <div className="h-6 w-full animate-pulse rounded-md bg-gray-700"></div>
+              <div className="h-6 w-9/12 rounded-md bg-gray-700 "></div>
               <br />
-              <div className="h-6 bg-gray-700 rounded-md w-12/12 "></div>
-              <div className="h-6 bg-gray-700 rounded-md w-12/12 "></div>
-              <div className="w-9/12 h-6 bg-gray-700 rounded-md "></div>
-              <div className="h-6 bg-gray-700 rounded-md w-12/12 animate-pulse"></div>
-              <div className="w-9/12 h-6 bg-gray-700 rounded-md"></div>
-              <div className="h-6 bg-gray-700 rounded-md w-12/12 animate-pulse "></div>
-              <div className="w-9/12 h-6 bg-gray-700 rounded-md "></div>
-              <div className="w-9/12 h-6 bg-gray-700 rounded-md animate-pulse"></div>
+              <div className="h-6 w-full rounded-md bg-gray-700 "></div>
+              <div className="h-6 w-full rounded-md bg-gray-700 "></div>
+              <div className="h-6 w-9/12 rounded-md bg-gray-700 "></div>
+              <div className="h-6 w-full animate-pulse rounded-md bg-gray-700"></div>
+              <div className="h-6 w-9/12 rounded-md bg-gray-700"></div>
+              <div className="h-6 w-full animate-pulse rounded-md bg-gray-700 "></div>
+              <div className="h-6 w-9/12 rounded-md bg-gray-700 "></div>
+              <div className="h-6 w-9/12 animate-pulse rounded-md bg-gray-700"></div>
             </div>
           </div>
         </div>
       </div>
       <div>
-        <IOSCard className="flex w-full shadow-lg grow shadow-black">
-          <ImagePlaceholder className="w-[600px] mx-auto h-[620px]" />
+        <IOSCard className="flex w-full grow shadow-lg shadow-black">
+          <ImagePlaceholder className="mx-auto h-[620px] w-[600px]" />
         </IOSCard>
       </div>
     </div>

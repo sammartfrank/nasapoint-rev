@@ -10,12 +10,12 @@ const TODAY = new Date();
 export const Home = ({ initialApod }: { initialApod: Apod }) => {
   const [dateSelected, setDateSelected] = useState(new Date());
   return (
-    <div className="flex flex-col items-center w-full min-h-screen bg-zinc-800">
-      <div className="flex flex-col items-center w-full backdrop-blur-md">
+    <div className="flex min-h-screen w-full flex-col items-center bg-zinc-800">
+      <div className="flex w-full flex-col items-center backdrop-blur-md">
         <Header>
           <DatePickerNasapoint dateSelected={dateSelected} setDateSelected={setDateSelected} today={TODAY} />
         </Header>
-        <div className="flex flex-row items-center w-full min-h-screen ">
+        <div className="flex min-h-screen w-full flex-row items-center ">
           <ApodCard initialApod={initialApod} dateSelected={dateSelected} />
         </div>
       </div>
