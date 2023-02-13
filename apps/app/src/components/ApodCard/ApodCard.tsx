@@ -15,12 +15,11 @@ type UiApod = Apod & { itsInitial?: boolean };
 export const ApodCard = ({ initialApod, dateSelected }: { initialApod: UiApod; dateSelected: Date }) => {
   const { apodByDate, isLoading } = useApodByDate(dateSelected);
 
-  if (!apodByDate && !initialApod) return <InfoSkeleton />;
+  if (!apodByDate) return <InfoSkeleton />;
 
-  const IS_VIDEO = apodByDate?.media_type === mediaType.video || initialApod?.media_type === mediaType.video;
+  const IS_VIDEO = apodByDate?.media_type === mediaType.video;
 
-  const imageUrl = apodByDate?.hdurl || initialApod?.hdurl;
-  const ImageLoader = () => imageUrl ?? '/';
+  const ImageLoader = () => apodByDate?.hdurl ?? '/';
 
   const apod: UiApod = apodByDate ? apodByDate : initialApod;
   return (

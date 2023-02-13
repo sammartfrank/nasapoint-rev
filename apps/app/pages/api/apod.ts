@@ -4,7 +4,6 @@ import { endpoint, requireAuthentication, sendError } from 'utils/endpoint';
 import { NextApiRequest } from 'next';
 import { handleApodByDate } from '../../models/APODModel';
 
-
 export default endpoint().get(
   async (
     req: NextApiRequest & {

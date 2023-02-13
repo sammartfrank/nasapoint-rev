@@ -18,10 +18,8 @@ const saveApod = async (apod: Apod) =>
 
 export const handleApodByDate = async (date: Date): Promise<Apod | null> => {
   const existingApod = await getUniqueApodByDate(date);
-  console.log('🚀 ~ existingApod', existingApod);
   if (existingApod) return existingApod;
   const newApod = await fetchApodByDate(date);
   const apod = await saveApod(newApod);
-  console.log('🚀 ~ apod', apod);
   return apod;
 };
