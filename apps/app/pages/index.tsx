@@ -3,31 +3,38 @@ import { GetServerSideProps } from 'next';
 import prisma from 'utils/prismaClient';
 import { Apod } from '@prisma/client';
 import { Home } from 'screens/Home';
+import { TODAY, parseDate } from 'utils/dateUtils';
 
-const HomePage = ({ apodSaved }: { apodSaved: string }) => {
-  const initialApod = JSON.parse(apodSaved) as Apod;
+const HomePage = ({ listOfApods }: { listOfApods?: string }) => {
+  const list = JSON.parse(listOfApods ?? '') as Apod[];
   return (
     <>
       <Head>
         <title>Nasapoint</title>
       </Head>
-      <Home initialApod={initialApod} />
+      <Home listOfApods={list} />
     </>
   );
 };
 
 export default HomePage;
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const date = new Date().toISOString().split('T')[0];
+export const getServerSideProps: GetServerSideProps = async () => {
+  const [listOfApods] = await initialize();
+  return {
+    props: {
+      listOfApods: JSON.stringify(listOfApods),
+    },
+  };
+};
 
-  const [apodSaved, _visitCount] = await prisma.$transaction([
-    prisma.apod.findUnique({
-      where: { date },
-    }),
+const initialize = async () => {
+  const FORMATTED_TODAY = parseDate(TODAY);
+
+  const [_visit, listOfApods] = await prisma.$transaction([
     prisma.visit.upsert({
-      where: { date },
-      create: { date, count: 1 },
+      where: { date: FORMATTED_TODAY },
+      create: { date: FORMATTED_TODAY, count: 1 },
       update: {
         count: {
           increment: 1,
@@ -38,11 +45,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         date: true,
       },
     }),
+    prisma.apod.findMany({
+      where: {
+        date: {
+          lte: FORMATTED_TODAY,
+        },
+      },
+      orderBy: {
+        date: 'desc',
+      },
+      take: 10,
+    }),
   ]);
-
-  return {
-    props: {
-      apodSaved: JSON.stringify(apodSaved),
-    },
-  };
+  return [listOfApods];
 };

@@ -1,4 +1,3 @@
-import { ImagePlaceholder } from 'components/ImagePlaceholder/Image';
 import { IOSCard } from '../IOSCard/IOSCard';
 
 export const InfoSkeleton = () => {
@@ -28,9 +27,7 @@ export const InfoSkeleton = () => {
         </div>
       </div>
       <div>
-        <IOSCard className="flex w-full grow shadow-lg shadow-black">
-          <ImagePlaceholder className="mx-auto h-[620px] w-[600px]" />
-        </IOSCard>
+        <IOSCard className="flex w-full grow shadow-lg shadow-black" />
       </div>
     </div>
   );
