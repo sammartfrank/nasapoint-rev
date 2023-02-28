@@ -8,3 +8,9 @@ export const fetchApodByDate = async (date: Date): Promise<Apod> => {
   const res = await results.json();
   return res;
 };
+
+export const fetchApodImage = async (url: string) => {
+  const results = await fetch(url);
+  const res = await results.blob();
+  return res;
+};
