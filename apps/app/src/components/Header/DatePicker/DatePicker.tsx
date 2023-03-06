@@ -4,8 +4,9 @@ import { Dispatch, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import { parseDate } from 'utils/dateUtils';
 
-type T = Date;
+type T = string;
 
 export const CustomInput = forwardRef(({ value, onClick }: { value?: string; onClick?: () => void }, ref: any) => (
   <div ref={ref}>
@@ -16,34 +17,35 @@ export const CustomInput = forwardRef(({ value, onClick }: { value?: string; onC
 export const DatePickerNasapoint = ({
   dateSelected,
   setDateSelected,
-  today,
 }: {
-  dateSelected: Date;
+  dateSelected: string;
   setDateSelected: Dispatch<T>;
-  today: Date;
 }) => {
+  const datePickerDateSelectedFormatted = parseDate(dateSelected);
+  const today = parseDate(new Date());
 
   const handleBackDate = () => {
-    const newDate = new Date(dateSelected.setDate(dateSelected.getDate() - 1));
-    setDateSelected(newDate);
+    const newDate = new Date(dateSelected);
+    newDate.setDate(newDate.getDate() - 1);
+    return setDateSelected(parseDate(newDate));
   };
 
   const handleNextDate = () => {
-    const newDate = new Date(dateSelected.setDate(dateSelected.getDate() + 1));
-    setDateSelected(newDate);
+    const newDate = new Date(dateSelected);
+    newDate.setDate(newDate.getDate() + 1);
+    return setDateSelected(parseDate(newDate));
   };
 
   return (
     <div className="flex flex-row items-center gap-2">
       <MdArrowBack size={18} className="hover:cursor-pointer mb-1" onClick={handleBackDate} />
       <DatePicker
-        selected={dateSelected}
-        onChange={setDateSelected}
+        onChange={(date) => setDateSelected(parseDate(date ?? new Date()))}
         customInput={<CustomInput />}
-        maxDate={today}
+        maxDate={new Date()}
         className="z-20"
       />
-      {dateSelected.getDate() === today.getDate() ? null : (
+      {datePickerDateSelectedFormatted === today ? null : (
         <MdArrowForward size={18} className="hover:cursor-pointer mb-1" onClick={handleNextDate} />
       )}
     </div>

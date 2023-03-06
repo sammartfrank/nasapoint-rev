@@ -5,15 +5,17 @@ import { Header } from 'components/Header/Header';
 import { ApodCard } from 'components/ApodCard/ApodCard';
 import { DatePickerNasapoint } from 'components/Header/DatePicker/DatePicker';
 import { View, ViewSelector } from 'components/ViewSelector/ViewSelector';
+import { useApodByDate } from 'hooks/useApodByDate';
+import { LoadingScreen } from 'components/LoadingScreen/LoadingScreen';
 
-export const Home = ({ listOfApods }: { listOfApods?: Apod[] }) => {
-  const initialApod = listOfApods?.[0];
+export const Home = ({ listOfApods }: { listOfApods: Apod[] }) => {
+  const todayInitialDateType = new Date().toISOString().split('T')[0];
 
-  const today = new Date();
+  const [dateSelected, setDateSelected] = useState(todayInitialDateType);
 
-  const [dateSelected, setDateSelected] = useState(today);
+  const { apodByDate, isLoading } = useApodByDate(dateSelected);
+
   const [fullScrolled, setFullScrolled] = useState(false);
-  console.log('🚀 ~ fullScrolled', fullScrolled);
   const [viewSelected, setView] = useState<View>(View.Thumb);
 
   // on bottom of scrolling page, fetch more apods
@@ -28,26 +30,34 @@ export const Home = ({ listOfApods }: { listOfApods?: Apod[] }) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Loading screen
+  if (isLoading || !apodByDate) return <LoadingScreen />;
   return (
-    <div className="flex min-h-screen w-full flex-col items-center bg-zinc-800">
-      <div className="flex w-full flex-col items-center backdrop-blur-md">
-        <Header>
-          {viewSelected === View.Thumb && (
-            <DatePickerNasapoint dateSelected={dateSelected} setDateSelected={setDateSelected} today={today} />
-          )}
-          <ViewSelector view={viewSelected} setView={setView} />
-        </Header>
-
-        {viewSelected === View.Thumb && <ApodCard initialApod={initialApod} dateSelected={dateSelected} />}
-        {viewSelected === View.List && (
-          <div className="flex flex-col gap-4">
-            {listOfApods?.map((apod) => (
-              <ApodCard key={apod.id} initialApod={apod} dateSelected={new Date(apod.date)} />
-            ))}
-            {fullScrolled && <div className="text-white">Loading more...</div>}
-          </div>
+        <div className="flex w-full min-h-screen  flex-col bg-zinc-800 scrollbar-hide">
+    <Header>
+        {viewSelected === View.Thumb && (
+          <DatePickerNasapoint dateSelected={dateSelected} setDateSelected={setDateSelected} />
         )}
-      </div>
+        <ViewSelector view={viewSelected} setView={setView} />
+      </Header>
+
+      {/* Thumbnail */}
+      {viewSelected === View.Thumb && (
+        <div className="flex h-full w-full flex-col bg-zinc-800">
+          <div className="container mx-auto"> 
+            <ApodCard apod={apodByDate} />
+          </div>
+        </div>
+      )}
+
+      {/* List */}
+      {viewSelected === View.List && (
+        <div className="container flex flex-col gap-4">
+          {listOfApods?.map((apod) => (
+            <ApodCard key={apod.id} apod={apod} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

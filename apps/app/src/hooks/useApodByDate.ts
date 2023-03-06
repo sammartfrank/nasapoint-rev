@@ -1,13 +1,12 @@
-import { parseDate } from 'utils/dateUtils';
 import { Apod } from '@prisma/client';
 import { httpGet } from './../utils/apiClient';
 
 import { useQuery } from '@tanstack/react-query';
 
-const fetchApodByDate = async (date: Date): Promise<Apod> => httpGet(`/apod?date=${parseDate(date)}`);
+const fetchApodByDate = async (date: string): Promise<Apod> => httpGet(`/apod?date=${date}`);
 
-export const useApodByDate = (date: Date) => {
-  const { data, isLoading, isError } = useQuery<Promise<Apod>, [string, Date], Apod, readonly [string, Date]>(
+export const useApodByDate = (date: string) => {
+  const { data, isLoading, isError } = useQuery<Promise<Apod>, [string, string], Apod, readonly [string, string]>(
     ['apod_by_date', date],
     () => fetchApodByDate(date)
   );
