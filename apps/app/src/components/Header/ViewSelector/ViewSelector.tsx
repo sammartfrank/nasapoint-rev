@@ -1,4 +1,3 @@
-import { MouseEventHandler } from 'react';
 import { MdCalendarToday, MdList } from 'react-icons/md';
 
 export enum View {
@@ -28,13 +27,13 @@ export const ViewSelector = ({ view: viewSelected, setView }: { view: View; setV
   };
 
   return (
-    <div className="flex flex-row gap-4 bg-zinc-800 rounded-full p-1">
+    <div className="flex flex-row gap-4 rounded-full bg-zinc-800 p-1">
       {views.map((view) => (
         <span
           key={view.label}
           onClick={(e) => handleOnViewSelected(view)}
           data-selected={viewSelected === view.label}
-          className="hover:cursor-pointer data-[selected=true]:bg-gray-700 p-2 rounded-full"
+          className="rounded-full p-2 hover:cursor-pointer data-[selected=true]:bg-gray-700"
         >
           {view.icon}
         </span>

@@ -10,7 +10,7 @@ export const ApodCard = ({ apod }: { apod: Apod }) => {
   if (!apod) return <InfoSkeleton />;
 
   return (
-    <div className="w-full flex md:flex-row flex-col justify-between scrollbar-hide my-5">
+    <div className="flex w-full flex-col justify-between md:flex-row">
       <Card apod={apod || apodByDate} />;
       <ApodInfo apod={apod} />
     </div>

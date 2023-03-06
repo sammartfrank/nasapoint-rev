@@ -27,7 +27,7 @@ export const InfoSkeleton = () => {
         </div>
       </div>
       <div>
-        <Card className="flex w-full grow shadow-lg shadow-black" />
+        <Card />
       </div>
     </div>
   );

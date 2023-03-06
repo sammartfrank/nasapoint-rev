@@ -33,7 +33,7 @@ export const Home = ({ listOfApods }: { listOfApods: Apod[] }) => {
   // Loading screen
   if (isLoading || !apodByDate) return <LoadingScreen />;
   return (
-        <div className="flex w-full min-h-screen  flex-col bg-zinc-800 scrollbar-hide">
+        <div className="flex min-h-screen  w-full flex-col bg-zinc-800">
     <Header>
         {viewSelected === View.Thumb && (
           <DatePickerNasapoint dateSelected={dateSelected} setDateSelected={setDateSelected} />

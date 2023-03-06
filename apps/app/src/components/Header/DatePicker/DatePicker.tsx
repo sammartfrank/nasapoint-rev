@@ -14,6 +14,8 @@ export const CustomInput = forwardRef(({ value, onClick }: { value?: string; onC
   </div>
 ));
 
+CustomInput.displayName = 'CustomInput';
+
 export const DatePickerNasapoint = ({
   dateSelected,
   setDateSelected,
@@ -38,7 +40,7 @@ export const DatePickerNasapoint = ({
 
   return (
     <div className="flex flex-row items-center gap-2">
-      <MdArrowBack size={18} className="hover:cursor-pointer mb-1" onClick={handleBackDate} />
+      <MdArrowBack size={18} className="mb-1 hover:cursor-pointer" onClick={handleBackDate} />
       <DatePicker
         onChange={(date) => setDateSelected(parseDate(date ?? new Date()))}
         customInput={<CustomInput />}
@@ -46,7 +48,7 @@ export const DatePickerNasapoint = ({
         className="z-20"
       />
       {datePickerDateSelectedFormatted === today ? null : (
-        <MdArrowForward size={18} className="hover:cursor-pointer mb-1" onClick={handleNextDate} />
+        <MdArrowForward size={18} className="mb-1 hover:cursor-pointer" onClick={handleNextDate} />
       )}
     </div>
   );
