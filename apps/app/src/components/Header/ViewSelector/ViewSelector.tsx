@@ -31,7 +31,7 @@ export const ViewSelector = ({ view: viewSelected, setView }: { view: View; setV
       {views.map((view) => (
         <span
           key={view.label}
-          onClick={(e) => handleOnViewSelected(view)}
+          onClick={(_e) => handleOnViewSelected(view)}
           data-selected={viewSelected === view.label}
           className="rounded-full p-2 hover:cursor-pointer data-[selected=true]:bg-gray-700"
         >
