@@ -1,22 +1,18 @@
 import { ApodInfo } from 'components/ApodCard/ApodInfo/ApodInfo';
-import { useApodByDate } from 'hooks/useApodByDate';
-import { IOSCard } from './IOSCard/IOSCard';
+
 import { Apod } from '@prisma/client';
+import { Card } from './Card/Card';
 import { InfoSkeleton } from './ApodInfo/InfoSkeleton';
+import { useApodByDate } from 'hooks/useApodByDate';
 
-export const ApodCard = ({ initialApod, dateSelected }: { initialApod?: Apod; dateSelected: Date }) => {
-  const { apodByDate, isLoading } = useApodByDate(dateSelected);
-
-  if (!apodByDate) return <InfoSkeleton />;
-
-  const apod = apodByDate ? apodByDate : initialApod;
+export const ApodCard = ({ apod }: { apod: Apod }) => {
+  const { apodByDate } = useApodByDate(apod.date);
+  if (!apod) return <InfoSkeleton />;
 
   return (
-    <div className="relative -z-[1]  flex h-full min-h-screen w-full lg:flex-row flex-col items-center ">
-      <div className="md:flex-row flex-col container mx-auto flex  justify-center gap-24 my-24">
-        <ApodInfo apod={apod} />
-        <IOSCard apodByDate={apodByDate} className="flex shadow-lg" />
-      </div>
+    <div className="flex w-full flex-col justify-between md:flex-row">
+      <Card apod={apod || apodByDate} />;
+      <ApodInfo apod={apod} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const { fontFamily, colors, fontSize, ...theme } = require('tailwindcss/defaultTheme');
-const scrollbarPlugin = require('tailwind-scrollbar');
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   mode: 'jit',
@@ -98,5 +98,23 @@ module.exports = {
       },
     },
   },
-  plugins: [scrollbarPlugin({ noncompatible: true })],
+  plugins: [
+    // This plugin enables us the scrollbar-hide class, which allows us to hide the horizontal scrollbar
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.scrollbar-hide': {
+          /* IE and Edge */
+          '-ms-overflow-style': 'none',
+
+          /* Firefox */
+          'scrollbar-width': 'none',
+
+          /* Safari and Chrome */
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+        },
+      });
+    }),
+  ],
 };

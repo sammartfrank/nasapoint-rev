@@ -2,10 +2,11 @@ import { ReactNode } from 'react';
 
 export const Header = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="container fixed flex flex-row justify-center text-white ">
-      <div className="my-2 flex flex-row gap-4 w-full justify-between">
+    <div className="container z-10 mx-auto flex flex-row justify-center text-white">
+      <div className="my-2 flex w-full flex-row justify-between gap-4">
         <div />
-        {children}</div>
+        {children}
+      </div>
     </div>
   );
 };

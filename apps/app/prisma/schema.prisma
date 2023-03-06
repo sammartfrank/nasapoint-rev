@@ -22,6 +22,7 @@ model Apod {
   explanation     String
   hdurl           String?
   media_type      mediaType @default(image)
+  image           String?
   service_version String
   title           String
   url             String

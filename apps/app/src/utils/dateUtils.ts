@@ -1,4 +1,4 @@
-export const parseDate = (date: Date) => {
+export const parseDate = (date: Date | string) => {
   const parsedDateToDB = String(new Date(date).toISOString().split('T')[0]);
   return parsedDateToDB;
 };

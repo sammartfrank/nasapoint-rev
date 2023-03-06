@@ -1,4 +1,4 @@
-import { IOSCard } from '../IOSCard/IOSCard';
+import { Card } from '../Card/Card';
 
 export const InfoSkeleton = () => {
   return (
@@ -27,7 +27,7 @@ export const InfoSkeleton = () => {
         </div>
       </div>
       <div>
-        <IOSCard className="flex w-full grow shadow-lg shadow-black" />
+        <Card />
       </div>
     </div>
   );
